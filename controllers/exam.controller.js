@@ -62,7 +62,7 @@ export const addComment = async (req, res) => {
 export const getAllExams = async(req,res) => {
     try {
 
-        const data = await Exam.find().select("comment") ;
+        const data = await Exam.find().select("-comments") ;
 
         res.json(data);
         

@@ -35,29 +35,15 @@ export const findAndAddUser = async (req, res) => {
     res.json({
       message: 'Login successful',
       token: jwtToken,
-      user
+      data:user,
+      success:true
     })
 
     } catch (err) {
-    res.status(401).json({ message: 'Authentication failed' })
+    res.status(401).json({ message: 'Authentication failed', success:false })
   }
 
-//   try {
-//     const { name, email } = req.body;
 
-//     const exists = await User.findOne({ email });
-//     if (exists) return res.status(400).json({ message: "User already exists" });
-
-//     const user = await User.create({ name, email, password });
-
-//     res.json({
-//       message: "Registration successful",
-//       token: generateToken(user._id),
-//       user: { id: user._id, name: user.name, email: user.email },
-//     });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
 };
 
 export const profileGetter = async (req,res ) =>{
@@ -69,19 +55,21 @@ export const profileGetter = async (req,res ) =>{
     if(!finduser){
       res.json({
         isLogin:false,
-        message:"Please, create your account"
+        message:"Please, create your account using google..."
       });
 
     }
 
     res.status(200).json({
-      ...finduser
+        message:"fetching successfully",
+        data:finduser,
+        success:true
     })
 
 
     
   } catch (error) {
-    res.status(401).json({ message: 'failed to get Information' })
+    res.status(401).json({ message: 'failed to get Information', success:false })
   }
 
 }

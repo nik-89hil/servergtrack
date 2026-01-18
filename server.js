@@ -15,7 +15,7 @@ const port = 8080 || process.env.PORT;
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 15 min
-  max: 9, // max requests per IP
+  max: 15, // max requests per IP
   message: "Too many requests, try again later"
 });
 
@@ -36,9 +36,9 @@ connectDB();
 
 //routes are here
 
-app.use("/api/user-account",limiter,userRoutes);
-app.use("/api/browse",examRoutes);
-app.use("/api/admin/",adminRoutes);
+app.use("/api/user-account",userRoutes);
+app.use("/api/browse", limiter ,examRoutes);
+app.use("/api/admin",adminRoutes);
 
 
 
@@ -48,8 +48,9 @@ app.use("/api/admin/",adminRoutes);
 
 app.get("/",limiter,(req,res)=>{
     res.json({
-        message:"server started"
-    })
+        message:"server started",
+        success:true
+    });
 });
 
 
